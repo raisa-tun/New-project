@@ -46,6 +46,7 @@
         </header>
 
         @yield('content')
+      
     </div>
 </body>
 </html>

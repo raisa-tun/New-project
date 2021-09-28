@@ -39,16 +39,37 @@
                           <td>{{$user->name}}</td>
                           <td>{{$user->email}}</td>
                           <td>{{$user->password}}</td>
-                          <td><a href="/customer/{{$user->id}}/edit">Edit</a></td>
+                          <td>
+                                <button type="submit" class="border-b-2 pb-2 border-dotted italic
+                                        text-red-500">
+                                        <a href="customer/{{$user->id}}/edit" class="italic" >
+                                             Edit &rarr;</a>
+                          </td>
+                          <td>
+                            <form action="/customer/{{$user->id}}" method="POST">
+                                 @csrf
+                                 @method('delete')
+                                 <button type="submit" class="border-b-2 pb-2 border-dotted italic
+                                         text-red-500">
+                                      Delete &rarr;
+                                  
+                                 </button>
+                            </form>
+                          </td>
                         </tr>
                      @endforeach
+                     
                       </tbody>
                     </table>
+                    {{ $users->links() }}
 </div>
 
              </span> 
          </div>
+
+         
      </div>
+     
 </div>
 
 @endsection

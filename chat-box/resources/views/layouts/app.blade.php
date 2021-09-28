@@ -31,6 +31,7 @@
                             <a class="no-underline hover:underline" href="{{ route('register') }}">{{ __('Register') }}</a>
                         @endif
                     @else
+                        
                         <span>{{ Auth::user()->name }}</span>
 
                         <a href="{{ route('logout') }}"
@@ -41,6 +42,10 @@
                             {{ csrf_field() }}
                         </form>
                     @endguest
+                    <a href="customer/create" class="text-lg font-semibold text-gray-100 no-underline">
+                          Add User</a>
+                    <a href="/customer" class="text-lg font-semibold text-gray-100 no-underline">
+                          User List</a>
                 </nav>
             </div>
         </header>

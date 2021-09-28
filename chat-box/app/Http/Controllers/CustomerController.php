@@ -16,7 +16,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $users = Customer::all();
+        $users = Customer::orderBy('created_at','desc')->paginate(3);
        // dd('$user');
 
         return view("customer.index", ['users'=>$users]);
@@ -40,13 +40,20 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
+
+        $request->validate([
+            'name' => 'required|alpha|max:255',
+            'email'=> 'required|email',
+            'password' => 'required|min:4'
+        ]);
+
         $user = Customer::create([
         
         'name' => $request->input('name'),
         'email' => $request->input('email'),
         'password' => Hash::make($request->input('password'))
         ]);
-        //retur redirect('/customer')->with('message','Customer added');
+        return redirect('/customer')->with('message','Customer added');
     }
 
     /**
@@ -68,6 +75,8 @@ class CustomerController extends Controller
      */
     public function edit($id)
     {
+        $user = Customer::find($id);
+        
         return view('customer.edit')
         ->with('user',Customer::where('id',$id)->first());
     }
@@ -101,6 +110,8 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = Customer::find($id);
+        $user->delete();
+        return redirect('/customer');
     }
 }

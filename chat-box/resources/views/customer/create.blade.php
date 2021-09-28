@@ -15,6 +15,9 @@
                  
                  <input type="text" class="block shadow-5xl mb-6 p-2 w-80 italic    
                         placeholder-gray" name="name" placeholder="Name">
+                        @error('name')
+                           <div class="w-4/8 mb-4">{{$message}}</div>
+                           @enderror
                  <input type="text" class="block shadow-5xl mb-6 p-2 w-80 italic    
                         placeholder-gray" name="email" placeholder="Email">
                  <input type="password" class="block shadow-5xl mb-6 p-2 w-80 italic    
@@ -26,7 +29,16 @@
 
              </div>
          </form>
+
+         
      </div>
-    
+                @if($errors->any())
+                        <div class="w-4/8 m-auto text-center">
+                            @foreach ($errors->all() as $error)
+                            <li class="text-red-500 list-none">
+                                {{$error}}
+                            </li>
+                            @endforeach
+                    @endif
 @endsection
 

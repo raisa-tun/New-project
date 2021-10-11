@@ -2,22 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Inbox;
+use App\Models\InboxMessage;
 
-class CustomerloginController extends Controller
+
+class InboxController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct()
-    {
-        $this->middleware();
-    }
     public function index()
     {
-        return view('user.index');
+        $admins = User::all();
+        
+        return view('inbox.inbox', ['admins'=>$admins]);
     }
 
     /**
@@ -27,7 +30,7 @@ class CustomerloginController extends Controller
      */
     public function create()
     {
-        //
+         return view('inbox.inbox');
     }
 
     /**
@@ -38,7 +41,28 @@ class CustomerloginController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->input('received_user'));
+        // dd($request->all());
+
+        $id = Auth::user()->id;
+        //for inbox table
+        $inbox = Inbox::create([
+            'from_user' => $id,
+            'received_user' => $request->user_id
+            ]);
+
+       // $id = User::orderBy('id')->get();
+        //for inbox_messages
+        $inbmsg = InboxMessage::create([
+
+            'inbox_id' => $inbox->id,
+            'user_id' => $id,
+            'message' => $request->message
+            //'is_read' => 
+         ]);
+        
+            
+          
     }
 
     /**

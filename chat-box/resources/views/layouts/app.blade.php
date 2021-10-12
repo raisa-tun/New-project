@@ -46,6 +46,12 @@
                           Add User</a>
                     <a href="/customer" class="text-lg font-semibold text-gray-100 no-underline">
                           User List</a>
+                    <a href="/inbox" class="text-lg font-semibold text-gray-100 no-underline">
+                          Let's Chat
+                    </a>
+                    <a href="/inbox" class="text-lg font-semibold text-gray-100 no-underline">
+                          Inbox List
+                    </a>
                 </nav>
             </div>
         </header>

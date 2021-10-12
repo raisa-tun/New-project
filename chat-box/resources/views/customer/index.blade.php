@@ -44,6 +44,7 @@
                                         text-red-500">
                                         <a href="customer/{{$user->id}}/edit" class="italic" >
                                              Edit &rarr;</a>
+                                </button>
                           </td>
                           <td>
                             <form action="/customer/{{$user->id}}" method="POST">

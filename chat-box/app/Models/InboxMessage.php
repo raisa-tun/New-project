@@ -9,4 +9,6 @@ class InboxMessage extends Model
 {
     use HasFactory;
     protected $fillable =['inbox_id','user_id','message','is_read'];
+
+
 }

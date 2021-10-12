@@ -18,9 +18,11 @@ class InboxController extends Controller
      */
     public function index()
     {
-        $admins = User::all();
-        
-        return view('inbox.inbox', ['admins'=>$admins]);
+     //   $admins = User::all();
+          $lists = Inbox::with('fromuser','rcvuser')->paginate(10);
+          
+         dd($lists->first()->rcvuser->name);
+        return view('inbox.inbox_list', ['lists'=>$lists]);
     }
 
     /**
@@ -42,19 +44,21 @@ class InboxController extends Controller
     public function store(Request $request)
     {
         // dd($request->input('received_user'));
-        // dd($request->all());
-
+       // dd($request->all());
+       
         $id = Auth::user()->id;
+    
+        
         //for inbox table
         $inbox = Inbox::create([
             'from_user' => $id,
             'received_user' => $request->user_id
             ]);
-
-       // $id = User::orderBy('id')->get();
+        
+        //dd($inbox);
+       // $id = Inbox::orderBy('id')->get();
         //for inbox_messages
         $inbmsg = InboxMessage::create([
-
             'inbox_id' => $inbox->id,
             'user_id' => $id,
             'message' => $request->message
@@ -62,7 +66,7 @@ class InboxController extends Controller
          ]);
         
             
-          
+         return redirect('/inbox'); 
     }
 
     /**

@@ -14,7 +14,11 @@ class Inbox extends Model
         return $this->belongsTo(User::class, 'from_user', 'id');
     }
     public function rcvuser(){
-        return $this->belongsTo(User::class, 'received_user', 'id');
         
+        return $this->belongsTo(User::class, 'received_user', 'id');
+       }
+    public function inboxmsg(){
+
+       return $this->hasMany(InboxMessage::class, 'inbox_id','id');
     }
 }

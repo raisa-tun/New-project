@@ -36,45 +36,26 @@
                       <tbody>
                       @foreach($lists as $list)
                         <tr>
-                          <td>{{$list->fromuser->name}}</td>
-                        <td>
+                          <
                         <?php
                         
-                           if(isset($list->rcvuser->name)){
-                              echo ($list->rcvuser->name);
+                           if((isset($list->inbox->message))){
+                              echo ($list->inbox->message);
                            }
                            else{
-                               echo "Unknown name";
+                               echo "No messages";
                            }
                           ?>
                           </td>
                           <td>{{$list->created_at}}</td>
-                          <td>
-                            
-                              <button type="submit" class="border-b-2 pb-2 border-dotted italic
-                                            text-red-500">
-                                            
-                                  <a href=
-                                      <?php
-                                          if(isset($list->inbox->inbox_id)){
-                                             echo ("inbox/{{$list->inbox->");
-                                                
-                                          }
-                                          else{
-                                            echo "No messages";
-                                          }
-                                          ?>>
-                                          Show message &rarr;</a>
-                              </button>
-                          </td>
-                          
+                      
                          
                         </tr>
                      @endforeach
                      
                       </tbody>
                     </table>
-                 {{ $lists->links() }}
+                
                     
 </div>
 

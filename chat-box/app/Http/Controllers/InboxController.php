@@ -16,12 +16,18 @@ class InboxController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __invoke(Request $request)
+    {
+        
+    }
     public function index()
     {
      //   $admins = User::all();
-          $lists = Inbox::with('fromuser','rcvuser')->paginate(10);
-          
-         dd($lists->first()->rcvuser->name);
+         $lists = Inbox::with('fromuser','rcvuser','inboxmsg')->paginate(10);
+        //  $lists = Inbox::with('fromuser','rcvuser','inboxmsg')->first();
+         
+
+//          dd($lists->first());
         return view('inbox.inbox_list', ['lists'=>$lists]);
     }
 

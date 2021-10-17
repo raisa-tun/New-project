@@ -36,6 +36,7 @@
                       <tbody>
                       @foreach($lists as $list)
                         <tr>
+                          <?php //dd($list->inbox2->message);?>
                           <td>{{$list->fromuser->name}}</td>
                         <td>
                         <?php
@@ -49,22 +50,38 @@
                           ?>
                           </td>
                           <td>{{$list->created_at}}</td>
+
+                          <td>
+                       <?php
+                        //dd($list->inbox2->message);
+                        if(isset($list->inboxmsg->message)){
+                           echo ($list->inboxmsg->message);
+                        }
+                        else{
+                            echo "Unknown message";
+                        }
+                       ?></td>
                           <td>
                             
                               <button type="submit" class="border-b-2 pb-2 border-dotted italic
                                             text-red-500">
                                             
-                                  <a href=
-                                      <?php
-                                          if(isset($list->inbox->inbox_id)){
-                                             echo ("inbox/{{$list->inbox->");
+                                  
+                                     
+                                          @if(isset($list->inboxmsg->inbox_id))
+                                       <!--    <a href= " {{url('inbox/{$list->inboxmsg->id}/show')}}">
+                                            Show message &rarr;</a>-->
+                                         <!--   <a href ="inbox/{{$list->inboxmsg->id}}/show">-->
+                                         <a href = "{{$id->path}}">
+                                             Show message &rarr;</a>
                                                 
-                                          }
-                                          else{
-                                            echo "No messages";
-                                          }
-                                          ?>>
-                                          Show message &rarr;</a>
+                                          
+                                          @else
+                                             No messages
+                                          
+                                          @endif
+                                         
+                                          
                               </button>
                           </td>
                           

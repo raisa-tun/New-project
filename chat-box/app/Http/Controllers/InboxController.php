@@ -22,13 +22,16 @@ class InboxController extends Controller
     }
     public function index()
     {
-     //   $admins = User::all();
-         $lists = Inbox::with('fromuser','rcvuser','inboxmsg')->paginate(10);
-        //  $lists = Inbox::with('fromuser','rcvuser','inboxmsg')->first();
-         
+         //  $admins = User::all();
+          $lists = Inbox::with('fromuser','rcvuser','inboxmsg')->paginate(5);
+          //dd($lists->first());
+          //dd($lists);
+        // $lists = Inbox::with('fromuser','rcvuser','inboxmsg')->first();
+        
 
-//          dd($lists->first());
+          //dd($lists->first()->inboxmsg->message);
         return view('inbox.inbox_list', ['lists'=>$lists]);
+       //return view('inbox.add', ['admins'=>$admins]);
     }
 
     /**
@@ -38,7 +41,7 @@ class InboxController extends Controller
      */
     public function create()
     {
-         return view('inbox.inbox');
+         return view('inbox.add');
     }
 
     /**
@@ -81,9 +84,18 @@ class InboxController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, $slug)
     {
-        //
+       // dd($id);
+        // $lists = Inbox::with('fromuser','rcvuser','inboxmsg')->paginate(15);
+         $lists = Inbox::with('fromuser','rcvuser','inboxmsg')->first();
+        // dd($lists->fromuser);
+        // dd($lists->first()->inboxmsg->message);
+        $id = InboxMessage::with('path');
+       // $id = InboxMessage::where('inbox_id',$id)->first();
+        //return $slug;
+        return view('inbox.show',compact('id'));
+        //return view('inbox.show',['lists'=>$lists]);
     }
 
     /**

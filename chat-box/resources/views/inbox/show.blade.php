@@ -13,7 +13,7 @@
      <div class="m-auto w-4/5 py-16">
          <div class="text-center">
              <h1 class="text-4xl uppercase bold">
-                 User List
+                 Chat List
              <h1>
          </div>
 
@@ -34,34 +34,40 @@
                       </thead>
                  
                       <tbody>
-                      @foreach($lists as $list)
+                      
+                     
                         <tr>
-                          <
+                        <td>
                         <?php
-                        
-                           if((isset($list->inbox->message))){
-                              echo ($list->inbox->message);
+                         
+                          dd($id->path->message);
+                           
+                           if(isset($id->path->message)){
+                              echo ($id->path->message);
+
+                              
                            }
                            else{
                                echo "No messages";
                            }
+                          
+                          
                           ?>
                           </td>
-                          <td>{{$list->created_at}}</td>
+                          </tr>
                       
                          
-                        </tr>
-                     @endforeach
+                  
                      
                       </tbody>
                     </table>
-                
+                    
                     
 </div>
 
              </span> 
          </div>
-
+              
          
      </div>
      

@@ -46,6 +46,6 @@ class User extends Authenticatable
 
     public function inbox(){
 
-        return $this->hasMany(Inbox::class);
+        return $this->hasMany(Inbox::class,'id','from_user');
     }
 }

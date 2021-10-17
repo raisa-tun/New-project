@@ -25,6 +25,6 @@ Route::resource('/customer',CustomerController::class);
 //Route::resource('/user',CustomerloginController::class);
 Route::resource('/inbox',InboxController::class);
 Auth::routes();
-Route::get('/inbox/{inbox_id}/show',InboxController::class);
+Route::get('/inbox/{id}-{slug}/show',[InboxController::class,'show']);
 Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

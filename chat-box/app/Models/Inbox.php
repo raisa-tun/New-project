@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Inbox extends Model
 {
@@ -19,6 +20,11 @@ class Inbox extends Model
        }
     public function inboxmsg(){
 
-       return $this->hasMany(InboxMessage::class, 'inbox_id','id');
+       return $this->belongsTo(InboxMessage::class, 'id','inbox_id');
+      // path();
+       
+    }
+    public function path(){
+        return url("/inbox/{$this->user_id}-" .Str::slug($this->message) );
     }
 }

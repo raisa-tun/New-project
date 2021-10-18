@@ -14,12 +14,16 @@
            <div class="input-group">
                <textarea class="form-control w-80" aria-label="With textarea" name="message"></textarea>
            </div>
+           
            <div class="input-group mt-3">
+
                 <select class="custom-select w-80" id="inputGroupSelect04" name= "user_id">
                     <option selected>Choose...</option>
+
                     @foreach($admins as $admin)
                     <option value="{{$admin->id}}">{{$admin->name}}</option>
                     @endforeach
+
                 </select>
                 
            </div>

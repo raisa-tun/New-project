@@ -59,6 +59,7 @@ class InboxController extends Controller
     
         
         //for inbox table
+       // if(isset())
         $inbox = Inbox::create([
             'from_user' => $id,
             'received_user' => $request->user_id
@@ -84,14 +85,11 @@ class InboxController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id, $slug)
+    public function show(Inbox $id, $slug)
     {
-       // dd($id);
-        // $lists = Inbox::with('fromuser','rcvuser','inboxmsg')->paginate(15);
-         $lists = Inbox::with('fromuser','rcvuser','inboxmsg')->first();
-        // dd($lists->fromuser);
-        // dd($lists->first()->inboxmsg->message);
-        $id = InboxMessage::with('path');
+       //dd($id);
+
+        
        // $id = InboxMessage::where('inbox_id',$id)->first();
         //return $slug;
         return view('inbox.show',compact('id'));

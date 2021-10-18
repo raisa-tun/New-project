@@ -71,8 +71,8 @@
                                           @if(isset($list->inboxmsg->inbox_id))
                                        <!--    <a href= " {{url('inbox/{$list->inboxmsg->id}/show')}}">
                                             Show message &rarr;</a>-->
-                                         <!--   <a href ="inbox/{{$list->inboxmsg->id}}/show">-->
-                                         <a href = "{{$id->path}}">
+                                          <a href ="inbox/{{$list->inboxmsg->inbox_id}}-{slug}/show">
+                                         
                                              Show message &rarr;</a>
                                                 
                                           

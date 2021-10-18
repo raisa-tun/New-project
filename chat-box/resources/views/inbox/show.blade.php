@@ -26,8 +26,8 @@
                       <thead>
                         <tr>
                           <th>From User</th>
-                          
                           <th>Received User</th>
+                          <th>Message</th>
                           <th>Created at</th>
                           
                         </tr>
@@ -40,19 +40,51 @@
                         <td>
                         <?php
                          
-                          dd($id->path->message);
-                           
-                           if(isset($id->path->message)){
-                              echo ($id->path->message);
+                           if(isset($id->fromuser->name)){
+                              echo ($id->fromuser->name);
 
                               
                            }
                            else{
-                               echo "No messages";
+                               echo "Unknown";
                            }
                           
                           
                           ?>
+                          </td>
+                          <td>
+                          <?php
+                          
+                          if(isset($id->rcvuser->name)){
+                             echo ($id->rcvuser->name);
+
+                             
+                          }
+                          else{
+                              echo "Unknown";
+                          }
+                         
+                         
+                         ?>
+                         </td>
+
+                         <td>
+                        <?php
+                         
+                           if(isset($id->inboxmsg->message)){
+                              echo ($id->inboxmsg->message);
+
+                              
+                           }
+                           else{
+                               echo "No messages to show";
+                           }
+                          
+                          
+                          ?>
+                          </td>
+                          <td>
+                            {{$id->inboxmsg->created_at}}
                           </td>
                           </tr>
                       

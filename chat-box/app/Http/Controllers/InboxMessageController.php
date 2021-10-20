@@ -4,31 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\Inbox;
 use App\Models\InboxMessage;
+use App\Models\Inbox;
 
-
-class InboxController extends Controller
+class InboxMessageController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request)
-    {
-        
-    }
     public function index()
     {
-         //  $admins = User::all();
-          $lists = Inbox::with('fromuser','rcvuser','inboxmsg')->paginate(10);
-        // $lists = Inbox::with('fromuser','rcvuser','inboxmsg')->first();
-         // $id = Inbox::all();
-            return view('inbox.inbox_list', ['lists'=>$lists]);
-            // return view('inbox.inbox_list', compact('lists','id'));                    
-            //return view('inbox.add', ['admins'=>$admins]);
+        //
     }
 
     /**
@@ -38,7 +26,7 @@ class InboxController extends Controller
      */
     public function create()
     {
-         return view('inbox.add');
+        //return view('inbox.show');
     }
 
     /**
@@ -49,31 +37,18 @@ class InboxController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->input('received_user'));
-       // dd($request->all());
-       
+        //dd($request->all());
         $id = Auth::user()->id;
-  //  dd($id);
         
-        //for inbox table
-       // if(isset())
-        $inbox = Inbox::create([
-            'from_user' => $id,
-            'received_user' => $request->user_id
-            ]);
         
-        //dd($inbox);
-       // $id = Inbox::orderBy('id')->get();
-        //for inbox_messages
-        $inbmsg = InboxMessage::create([
-            'inbox_id' => $inbox->id,
+      //  dd($request->inbox_id);
+        $inbmsg= InboxMessage::create([
+            'inbox_id' =>$request->inbox_id,
             'user_id' => $id,
-            'message' => $request->message
-            //'is_read' => 
-         ]);
+            'message' =>$request->message
+        ]);
         
-            
-         return redirect('/inbox'); 
+        return redirect()->route('inbox.show', ['inbox' => $inbmsg->inbox_id])->with('message', 'News created successfully');
     }
 
     /**
@@ -82,11 +57,9 @@ class InboxController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Inbox $id)
+    public function show($id)
     {
-       //dd($id);
-        return view('inbox.show',compact('id'));
-        
+        //
     }
 
     /**
@@ -120,9 +93,6 @@ class InboxController extends Controller
      */
     public function destroy($id)
     {
-        $user = InboxMessage::find($id);
-        //dd($user);
-        $user->delete();
-        return redirect('/inbox');
+        //
     }
 }

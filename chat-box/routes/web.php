@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\CustomerloginController;
 use App\Http\Controllers\InboxController;
+use App\Http\Controllers\InboxMessageController;
 
 
 
@@ -24,7 +25,8 @@ Route::get('/', function () {
 Route::resource('/customer',CustomerController::class);
 //Route::resource('/user',CustomerloginController::class);
 Route::resource('/inbox',InboxController::class);
+Route::resource('/showmsg',InboxMessageController::class);
 Auth::routes();
-Route::get('/inbox/{id}-{slug}/show',[InboxController::class,'show']);
+Route::get('/inbox/{id}/show',[InboxController::class,'show']);
 Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

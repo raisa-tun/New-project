@@ -91,7 +91,7 @@
                           ?>
                           </td>
                           <td>
-                           echo  ($id->inboxmsg->created_at);
+                                {{$id->inboxmsg->created_at}}
                           </td>
                           <td>
                             

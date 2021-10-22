@@ -22,7 +22,7 @@ class InboxController extends Controller
     }
     public function index()
     {
-         //  $admins = User::all();
+          $admins = User::all();
           $lists = Inbox::with('fromuser','rcvuser','inboxmsg')->paginate(10);
         // $lists = Inbox::with('fromuser','rcvuser','inboxmsg')->first();
          // $id = Inbox::all();
@@ -84,7 +84,7 @@ class InboxController extends Controller
      */
     public function show(Inbox $id)
     {
-       //dd($id);
+       dd($id->inboxmsg);
         return view('inbox.show',compact('id'));
         
     }
@@ -120,7 +120,7 @@ class InboxController extends Controller
      */
     public function destroy($id)
     {
-        $user = InboxMessage::find($id);
+        $user = Inbox::find($id);
         //dd($user);
         $user->delete();
         return redirect('/inbox');

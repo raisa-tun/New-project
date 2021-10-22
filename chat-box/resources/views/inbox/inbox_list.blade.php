@@ -49,7 +49,8 @@
                            }
                           ?>
                           </td>
-                          <td>{{$list->created_at}}</td>
+                          <td>
+                            {{$list->inboxmsg->created_at}}</td>
 
                    
                           <td>
@@ -79,7 +80,7 @@
                           <td>
                             
                             @if(isset($list->inboxmsg->inbox_id))
-                            <form action="/inbox/{{$list->inboxmsg->id}}" method="POST">
+                            <form action="/inbox/{{$list->inboxmsg->inbox_id}}" method="POST">
                                  @csrf
                                  @method('delete')
                                  <button type="submit" class="border-b-2 pb-2 border-dotted italic

@@ -47,8 +47,8 @@ class InboxMessageController extends Controller
             'user_id' => $id,
             'message' =>$request->message
         ]);
-        
-        return redirect()->route('inbox.show', ['inbox' => $inbmsg->inbox_id])->with('message', 'News created successfully');
+        //dd($inbmsg);
+        return redirect()->route('inbox.show', ['inbox' => $inbmsg->inbox_id])->with('message', 'Message created successfully');
     }
 
     /**

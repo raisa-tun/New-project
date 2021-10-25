@@ -22,13 +22,22 @@ class InboxController extends Controller
     }
     public function index()
     {
-         //  $admins = User::all();
-          $lists = Inbox::with('fromuser','rcvuser','inboxmsg')->paginate(10);
-        // $lists = Inbox::with('fromuser','rcvuser','inboxmsg')->first();
-         // $id = Inbox::all();
-            return view('inbox.inbox_list', ['lists'=>$lists]);
-            // return view('inbox.inbox_list', compact('lists','id'));                    
-            //return view('inbox.add', ['admins'=>$admins]);
+        $user= Auth::user();
+        if(empty($user)){
+            dd("There is no user logged in rigght now");
+        }
+        else{
+            $inboxes = $user->inbox;
+            
+        }
+        //dd($user);
+        //dd($inboxes);
+          //return view('inbox.inbox_list', compact('inboxes'));
+           $admins = User::all();
+          //$lists = Inbox::with('fromuser','rcvuser','inboxmsg')->paginate(10);
+            
+            //return view('inbox.inbox_list', ['lists'=>$lists]);                    
+            return view('inbox.add', ['admins'=>$admins]);
     }
 
     /**
@@ -54,13 +63,19 @@ class InboxController extends Controller
        
         $id = Auth::user()->id;
   //  dd($id);
-        
+        $rcv = Auth::user();
+
+        foreach($rcv as $rcv1){
+          dd($rcv1->inbox);
+        }
         //for inbox table
-       // if(isset())
-        $inbox = Inbox::create([
+        if(!$request->user_id == $rcv ){
+           $inbox = Inbox::create([
             'from_user' => $id,
             'received_user' => $request->user_id
             ]);
+        }
+
         
         //dd($inbox);
        // $id = Inbox::orderBy('id')->get();
@@ -84,7 +99,11 @@ class InboxController extends Controller
      */
     public function show(Inbox $id)
     {
-       //dd($id);
+      // dd($id);;
+      
+       foreach($id as $inbox_id){
+        //dd($inbox_id);
+       }
         return view('inbox.show',compact('id'));
         
     }

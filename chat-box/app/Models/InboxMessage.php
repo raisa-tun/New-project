@@ -12,7 +12,7 @@ class InboxMessage extends Model
     protected $fillable =['inbox_id','user_id','message'];
 
     public function inbox(){
-       return $this->hasMany(Inbox::class,'inbox_id','id');
+       return $this->belongsTo(Inbox::class,'inbox_id','id');
     }
     
 }

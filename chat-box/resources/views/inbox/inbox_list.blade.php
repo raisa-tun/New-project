@@ -34,22 +34,22 @@
                       </thead>
                  
                       <tbody>
-                      @foreach($lists as $list)
+                      @foreach($inboxes as $inbox)
                         <tr>
                           
-                          <td>{{$list->fromuser->name}}</td>
+                          <td>{{$inbox->fromuser->name}}</td>
                         <td>
                         <?php
                         
-                           if(isset($list->rcvuser->name)){
-                              echo ($list->rcvuser->name);
+                           if(isset($inbox->rcvuser->name)){
+                              echo ($inbox->rcvuser->name);
                            }
                            else{
                                echo "Unknown name";
                            }
                           ?>
                           </td>
-                          <td>{{$list->created_at}}</td>
+                          <td>{{$inbox->created_at}}</td>
 
                    
                           <td>
@@ -57,29 +57,22 @@
                               <button type="submit" class="border-b-2 pb-2 border-dotted italic
                                             text-red-500">
                                             
-                                  
-                                 <?php //   dd($list->inboxmsg->inbox_id); ?>
-                                          @if(isset($list->inboxmsg->inbox_id))
-                                          <a href= " {{url('inbox/'.$list->inboxmsg->inbox_id.'/show')}}">
+                      
+                                
+                                          
+                                          <a href= " {{url('inbox/'.$inbox->id.'/show')}}">
                                             Show message &rarr;</a>
-                                      <!--   <a href ="inbox/{{$list->inboxmsg->inbox_id}}/show">
-                                        
-                                         
-                                             Show message &rarr;</a>-->
+                                  
                                                 
                                           
-                                          @else
-                                             No messages
                                           
-                                          @endif
-                                         
-                                          
+                                     
                               </button>
                           </td>
                           <td>
                             
-                            @if(isset($list->inboxmsg->inbox_id))
-                            <form action="/inbox/{{$list->inboxmsg->id}}" method="POST">
+                            @if(isset($inbox->id))
+                            <form action="/inbox/{{$inbox->id}}" method="POST">
                                  @csrf
                                  @method('delete')
                                  <button type="submit" class="border-b-2 pb-2 border-dotted italic
@@ -94,11 +87,11 @@
                           </td>
                          
                         </tr>
-                     @endforeach
+                   @endforeach
                      
                       </tbody>
                     </table>
-                 {{ $lists->links() }}
+           {{--      {{ $lists->links() }}  --}}
                     
 </div>
 

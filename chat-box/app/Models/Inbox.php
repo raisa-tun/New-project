@@ -20,7 +20,7 @@ class Inbox extends Model
        }
     public function inboxmsg(){
 
-       return $this->belongsTo(InboxMessage::class, 'id','inbox_id');
+       return $this->hasMany(InboxMessage::class, 'inbox_id','id');
       
        
     }

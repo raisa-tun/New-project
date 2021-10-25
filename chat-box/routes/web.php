@@ -27,6 +27,6 @@ Route::resource('/customer',CustomerController::class);
 Route::resource('/inbox',InboxController::class);
 Route::resource('/showmsg',InboxMessageController::class);
 Auth::routes();
-Route::get('/inbox/{id}/show',[InboxController::class,'show']);
+Route::get('/inbox/{id}/show',[InboxController::class,'show'])->name('show');
 Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

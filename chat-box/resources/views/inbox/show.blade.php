@@ -76,23 +76,27 @@
                          </td>
 
                          <td>
-                        <?php
-                         
-                           if(isset($id->inboxmsg->message)){
-                              echo ($id->inboxmsg->message);
+                    <?php foreach($id as $message){
+                      $message= $id->inboxmsg;
+                         //dd($message);
+                         foreach($message as $messages){
+                           dd($messages->message);
+                         }
+                    }?>
+                        @foreach($id as $message)
+                           @if(isset($message->inboxmsg->message))
+                              echo $message->inboxmsg->message;
 
                               
-                           }
-                           else{
-                               echo "No messages to show";
-                           }
+                           
+                           @else
+                              No messages to show;
+                           
+                        
                           
-                          
-                          ?>
+                          @endif
                           </td>
-                          <td>
-                           echo  ($id->inboxmsg->created_at);
-                          </td>
+                         
                           <td>
                             
                             <button type="submit" class="border-b-2 pb-2 border-dotted italic
@@ -107,9 +111,10 @@
                           </tr>
                       
                          
-                  
+                          @endforeach
                      
                       </tbody>
+                      
                     </table>
                     
                     
@@ -121,7 +126,7 @@
     <form action="{{route('showmsg.store')}}" method="Post">
     @csrf
       <div class="flex-container">
-            <input type = "hidden" value="{{$id->inboxmsg->inbox_id}}" name="inbox_id">
+            
 
             <div style="flex-grow: 8">
                <textarea class="form-control" aria-label="With textarea" name="message"></textarea>

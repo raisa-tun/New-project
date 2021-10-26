@@ -24,7 +24,7 @@ class InboxController extends Controller
     {
         $user= Auth::user();
         if(empty($user)){
-            dd("There is no user logged in rigght now");
+            dd("There is no user logged in right now");
         }
         else{
             $inboxes = $user->inbox;
@@ -32,9 +32,9 @@ class InboxController extends Controller
         }
         //dd($user);
         //dd($inboxes);
-          //return view('inbox.inbox_list', compact('inboxes'));
+         // return view('inbox.inbox_list', compact('inboxes'));
            $admins = User::all();
-          //$lists = Inbox::with('fromuser','rcvuser','inboxmsg')->paginate(10);
+         // $lists = Inbox::with('fromuser','rcvuser','inboxmsg')->paginate(10);
             
             //return view('inbox.inbox_list', ['lists'=>$lists]);                    
             return view('inbox.add', ['admins'=>$admins]);
@@ -59,36 +59,62 @@ class InboxController extends Controller
     public function store(Request $request)
     {
         // dd($request->input('received_user'));
-       // dd($request->all());
+        //dd($request->all());
        
         $id = Auth::user()->id;
-  //  dd($id);
-        $rcv = Auth::user();
-
-        foreach($rcv as $rcv1){
-          dd($rcv1->inbox);
+  // dd($id);
+        
+        //dd($inbox_id);
+        $user = Inbox::where('from_user',$id)->where('received_user',$request->user_id);
+        //dd($user);
+        //if(Inbox::where('from_user',$id)->where('received_user',$request->user_id)->exists())
+        if($user->exists()){
+           // dd("exists");
+           //$inbox_id = Inbox::where('id',$id)->get();
+           $inbmsg = InboxMessage::create([
+            'inbox_id' => $inbox_id,
+            'user_id' => $id,
+            'message' => $request->message
+            
+        ]);
+        //dd($inbmsg);
+          return redirect('/inbox');
         }
-        //for inbox table
-        if(!$request->user_id == $rcv ){
-           $inbox = Inbox::create([
-            'from_user' => $id,
-            'received_user' => $request->user_id
+        else{
+
+            //dd("Not exists");
+            $inbox = Inbox::create([
+                'from_user' => $id,
+                'received_user' => $request->user_id
+                ]);
+                dd($inbox->id);
+                 //for inbox_messages
+            $inbmsg = InboxMessage::create([
+                'inbox_id' => $inbox->id,
+                'user_id' => $id,
+                'message' => $request->message
+                
             ]);
+            return redirect('/inbox');
         }
-
+              //for inbox table
+       /*       $inbox = Inbox::create([
+                    'from_user' => $id,
+                    'received_user' => $request->user_id
+                    ]);
+                     //for inbox_messages
+              $inbmsg = InboxMessage::create([
+                    'inbox_id' => $inbox->id,
+                    'user_id' => $id,
+                    'message' => $request->message
+                    
+                ]);*/
+ 
+            //return redirect('/inbox');
         
         //dd($inbox);
        // $id = Inbox::orderBy('id')->get();
-        //for inbox_messages
-        $inbmsg = InboxMessage::create([
-            'inbox_id' => $inbox->id,
-            'user_id' => $id,
-            'message' => $request->message
-            //'is_read' => 
-         ]);
-        
-            
-         return redirect('/inbox'); 
+       
     }
 
     /**
@@ -100,10 +126,7 @@ class InboxController extends Controller
     public function show(Inbox $id)
     {
       // dd($id);;
-      
-       foreach($id as $inbox_id){
-        //dd($inbox_id);
-       }
+    
         return view('inbox.show',compact('id'));
         
     }

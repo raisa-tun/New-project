@@ -46,7 +46,7 @@
                         <tr>
                         <td>
                         <?php
-                         
+                         //dd($id->fromuser->name);
                            if(isset($id->fromuser->name)){
                               echo ($id->fromuser->name);
 
@@ -74,44 +74,37 @@
                          
                          ?>
                          </td>
-
-                         <td>
-                    <?php foreach($id as $message){
-                      $message= $id->inboxmsg;
-                         //dd($message);
-                         foreach($message as $messages){
-                           dd($messages->message);
-                         }
-                    }?>
-                        @foreach($id as $message)
-                           @if(isset($message->inboxmsg->message))
-                              echo $message->inboxmsg->message;
-
-                              
-                           
-                           @else
-                              No messages to show;
-                           
-                        
+                        </tr>
+                        @foreach($user_messages as $message)
+                          <tr>
+                            <td>{{$message->message}}</td>
+                            <td>
+                              <button type="submit" class="border-b-2 pb-2 border-dotted italic
+                                            text-red-500">
+                                        <a href ="">
+                                        
+                                            Edit &rarr;</a>   
+                              </button>
+                            </td>
+                        </tr>
+             
                           
-                          @endif
-                          </td>
-                         
+                        <tr>
+
+                          <td>{{$message->message}}</td>
                           <td>
-                            
                             <button type="submit" class="border-b-2 pb-2 border-dotted italic
-                                          text-red-500">
-                                       <a href ="">
-                                       
-                                           Edit &rarr;</a>   
-                            </button>
-                        </td>
-                        <td>
-                          <?php// dd($id->inboxmsg);?></td>
-                          </tr>
+                                            text-red-500">
+                                        <a href ="">
+                                        
+                                            Edit &rarr;</a>   
+                              </button>
+                          </td>
+                        </tr>
                       
+                      
+                         @endforeach
                          
-                          @endforeach
                      
                       </tbody>
                       

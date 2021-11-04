@@ -33,12 +33,12 @@ class InboxController extends Controller
         }
         
        // dd($inboxes);
-          return view('inbox.inbox_list', compact('inboxes'));
+         // return view('inbox.inbox_list', compact('inboxes'));
            $admins = User::all();
          // $lists = Inbox::with('fromuser','rcvuser','inboxmsg')->paginate(10);
             
             //return view('inbox.inbox_list', ['lists'=>$lists]);                    
-           // return view('inbox.add', ['admins'=>$admins]);
+            return view('inbox.add', ['admins'=>$admins]);
     }
 
     /**
@@ -62,20 +62,28 @@ class InboxController extends Controller
         // dd($request->input('received_user'));
         //dd($request->all());
        
-        $id = Auth::user()->id;
-  // dd($id);
-        
-        //dd($inbox_id);
-        $inbox = Inbox::where('from_user',$id)->where('received_user',$request->user_id)->first();
-      //  dd($inbox->id);
-        if(isset($inbox))
+        $logged_in_id = Auth::user()->id;
+        // dd($id);
+      //  dd($request->received_id);
+    
+       //dd($inbox_id);
+        $inbox = Inbox::where('from_user',$logged_in_id)->where('received_user',$request->received_id)->first();
+       // dd($inbox);
+       // dd($inbox->rcvuser->inbox,$inbox->fromuser->inbox);
+       $fromuser = $inbox->from_user;
+      // dd($fromuser);
+       $received = $inbox->received_user;
+      // dd($received);
+
+        if(isset($inbox) )
         {
-           // dd("exists");
+            
+           // dd("There already data exists");
            
           // dd($inbox_id);
            $inbmsg = InboxMessage::create([
             'inbox_id' => $inbox->id,
-            'user_id' => $id,
+            'user_id' => $logged_in_id,
             'message' => $request->message
             
         ]);
@@ -84,10 +92,10 @@ class InboxController extends Controller
         }
         else{
 
-            //dd("Not exists");
+           // dd("Not exists");
             $inbox = Inbox::create([
                 'from_user' => $id,
-                'received_user' => $request->user_id
+                'received_user' => $request->received_id
                 ]);
                // dd($inbox->id);
                  //for inbox_messages
@@ -125,22 +133,26 @@ class InboxController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Inbox $id)
+    public function show(Inbox $inbox)
     {
      // dd($id->fromuser->name);
         
-        $getinbox_id = $id->id;
-        $getuser_id = $id->from_user;
-        $getreceiver_id = $id->received_user;
+       // $getuserinbox_id = $id->id;
+       // $getuser_id = $id->from_user;
+       // $getreceiver_id = $id->received_user;
+       $sender_user_message = $inbox->inboxmsg;
+      //dd($inbox->inboxmsg);
+       $received_user_message = $inbox->getreceiver_inbox($inbox->received_user,$inbox->from_user)->inboxmsg;
+       dd($received_user_message);
        
-        $receiver_inbox_id = Inbox::where('from_user',$getreceiver_id)->where('received_user',$getuser_id)->first();
+       // $receiver_inbox_id = Inbox::where('from_user',$getreceiver_id)->where('received_user',$getuser_id)->first();
         //dd($receiver_inbox_id->id);
 
-        $user_messages = InboxMessage::where('inbox_id',$getinbox_id)->where('inbox_id',$receiver_inbox_id->id)->get();
-       dd($user_messages);
+        //$user_messages = InboxMessage::where('inbox_id',$getuserinbox_id)->get();
+      // dd($user_messages);
         //$reply_messages = InboxMessage::where('inbox_id',$receiver_inbox_id->id)->get(); 
        // dd($reply_messages);
-        return view('inbox.show',compact('id','user_messages'));
+        return view('inbox.show',compact('inbox','sender_user_message','received_user_message'));
         
     }
 

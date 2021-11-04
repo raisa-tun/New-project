@@ -48,4 +48,7 @@ class User extends Authenticatable
 
         return $this->hasMany(Inbox::class,'from_user','id');
     }
+    public function receiver_inbox(){
+        return $this->hasMany(Inbox::class, 'received_user','id');
+    }
 }

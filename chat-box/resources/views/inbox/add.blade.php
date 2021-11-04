@@ -17,7 +17,7 @@
            
            <div class="input-group mt-3">
 
-                <select class="custom-select w-80" id="inputGroupSelect04" name= "user_id">
+                <select class="custom-select w-80" id="inputGroupSelect04" name= "received_id">
                     <option selected>Choose...</option>
 
                     @foreach($admins as $admin)

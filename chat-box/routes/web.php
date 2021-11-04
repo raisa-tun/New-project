@@ -5,6 +5,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\CustomerloginController;
 use App\Http\Controllers\InboxController;
 use App\Http\Controllers\InboxMessageController;
+use App\Http\Controllers\ChatController;
 
 
 
@@ -27,6 +28,6 @@ Route::resource('/customer',CustomerController::class);
 Route::resource('/inbox',InboxController::class);
 Route::resource('/showmsg',InboxMessageController::class);
 Auth::routes();
-Route::get('/inbox/{id}/show',[InboxController::class,'show']);
+Route::get('/inbox/{inbox}/show',[InboxController::class,'show']);
 Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+Route::resource('/chatview',ChatController::class);
